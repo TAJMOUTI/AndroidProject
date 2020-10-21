@@ -22,5 +22,14 @@ public class Landing_page extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        Button btn_sign_up = findViewById(R.id.btn_sign_up);
+        btn_sign_up.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), activity_sign_up_page.class);
+                startActivity(intent);
+            }
+        });
     }
 }

@@ -39,7 +39,7 @@
                 android:orientation="vertical">
 
                 <Button
-                    android:id="@+id/button"
+                    android:id="@+id/btn_sign_up"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/btn_primary"

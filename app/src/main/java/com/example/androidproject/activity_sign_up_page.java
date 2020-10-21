@@ -6,20 +6,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
-public class activity_sign_in_page extends AppCompatActivity {
+public class activity_sign_up_page extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_in_page);
+        setContentView(R.layout.activity_sign_up_page);
 
-        TextView txt_sign_up = (TextView) findViewById(R.id.txt_sign_up);
-        txt_sign_up.setOnClickListener(new View.OnClickListener() {
+        TextView txt_sign_in = (TextView) findViewById(R.id.txt_sign_in);
+        txt_sign_in.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), activity_sign_up_page.class);
+                Intent intent = new Intent(getApplicationContext(), activity_sign_in_page.class);
                 startActivity(intent);
             }
         });
