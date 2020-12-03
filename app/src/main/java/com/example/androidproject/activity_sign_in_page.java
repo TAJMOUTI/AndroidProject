@@ -1,12 +1,12 @@
 package com.example.androidproject;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class activity_sign_in_page extends AppCompatActivity {
 
@@ -20,6 +20,15 @@ public class activity_sign_in_page extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), activity_sign_up_page.class);
+                startActivity(intent);
+            }
+        });
+
+        Button btn_sign_in = findViewById(R.id.btnSignIn);
+        btn_sign_in.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
                 startActivity(intent);
             }
         });

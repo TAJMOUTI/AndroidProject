@@ -1,16 +1,15 @@
 package com.example.androidproject;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -42,23 +41,28 @@ public class activity_sign_up_page extends AppCompatActivity {
             }
         });
 
-        Button btnSignUp = findViewById(R.id.btnSignUp);
+        Button btnSignUp = findViewById(R.id.btnSignIn);
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = editTextEmailAddress.getText().toString();
+                System.out.print("ca marche");
+               /* String email = editTextEmailAddress.getText().toString();
                 String password = editTextPassword.getText().toString();
                 String confirmPassword = editTextConfirmPassword.getText().toString();
 
                 if(!email.isEmpty() && !password.isEmpty() && !confirmPassword.isEmpty()) {
                     if(password.equals(confirmPassword)) {
                         createAccount(email, password);
+                                //Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
+                                //startActivity(intent);
                     } else {
                         Toast.makeText(getApplicationContext(), "passwords don't match", Toast.LENGTH_LONG).show();
                     }
                 } else {
                     Toast.makeText(getApplicationContext(), "please fill all fields", Toast.LENGTH_LONG).show();
-                }
+                }*/
+                Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
+                startActivity(intent);
             }
         });
     }
