@@ -18,14 +18,6 @@
         android:theme="@style/AppTheme">
         <activity android:name=".ForgetPasswordActivity"></activity>
         <activity
-            android:name=".ManualActivity"
-            android:label="@string/title_activity_manual"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity
-            android:name=".DashboardActivity"
-            android:label="@string/title_activity_dashboard"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".PictureActivity"
             android:label="@string/title_activity_picture"
             android:theme="@style/AppTheme.NoActionBar" />

@@ -58,7 +58,7 @@ public class activity_sign_up_page extends AppCompatActivity {
                 if(!email.isEmpty() && !password.isEmpty() && !confirmPassword.isEmpty() && !name.isEmpty()) {
                     if(password.equals(confirmPassword)) {
                         createAccount(email, password, name);
-                        Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), Main_Page.class);
                         startActivity(intent);
                     } else {
                         Toast.makeText(getApplicationContext(), "passwords don't match", Toast.LENGTH_LONG).show();
@@ -66,7 +66,7 @@ public class activity_sign_up_page extends AppCompatActivity {
                 } else {
                     Toast.makeText(getApplicationContext(), "please fill all fields", Toast.LENGTH_LONG).show();
                 }
-                Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
+                Intent intent = new Intent(getApplicationContext(), Main_Page.class);
                 startActivity(intent);
             }
         });

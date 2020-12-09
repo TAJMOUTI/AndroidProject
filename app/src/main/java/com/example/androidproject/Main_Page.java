@@ -1,18 +1,15 @@
 package com.example.androidproject;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.PhoneAuthCredential;
-import com.google.firebase.auth.UserProfileChangeRequest;
 
 public class Main_Page extends AppCompatActivity {
 
@@ -26,10 +23,19 @@ public class Main_Page extends AppCompatActivity {
         setContentView(R.layout.activity_main__page);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
-        username = user.getDisplayName();
+        //username = user.getDisplayName(); //todo: erreur firebase
         textViewName = findViewById(R.id.textViewName);
 
         textViewName.setText("Hi " + username);
+
+        Button btn_to_camera = findViewById(R.id.btn_to_camera);
+        btn_to_camera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), PictureActivity.class);
+                startActivity(intent);
+            }
+        });
 
         Button btn_to_type_data = findViewById(R.id.btn_to_type_data);
         btn_to_type_data.setOnClickListener(new View.OnClickListener() {

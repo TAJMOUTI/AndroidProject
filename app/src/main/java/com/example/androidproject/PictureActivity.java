@@ -120,7 +120,7 @@ public class PictureActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);//Quand la page se crée la fonction takePicture est directement crée
         takePicture();
         setContentView(R.layout.activity_picture);
         ingredients = new ArrayList<>();
@@ -135,7 +135,7 @@ public class PictureActivity extends AppCompatActivity {
             new ClarifaiTask().execute(new File(photoPath));
         }
     }
-
+// La fonction pour prendre des photos
     public void takePicture() {
         //Ouvrir l'appareil photo
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
