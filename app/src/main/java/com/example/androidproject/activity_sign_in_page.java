@@ -12,7 +12,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -104,5 +105,13 @@ public class activity_sign_in_page extends AppCompatActivity {
     }
 
     private void updateUI(FirebaseUser user) {
+        Button btn_sign_in = findViewById(R.id.btnSignIn);
+        btn_sign_in.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

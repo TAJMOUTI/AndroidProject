@@ -2,12 +2,33 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.androidproject">
 
+    <uses-feature android:name="android.hardware.camera" android:required="true" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ForgetPasswordActivity"></activity>
+        <activity
+            android:name=".ManualActivity"
+            android:label="@string/title_activity_manual"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".DashboardActivity"
+            android:label="@string/title_activity_dashboard"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".PictureActivity"
+            android:label="@string/title_activity_picture"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activity_sign_up_page" />
         <activity android:name=".activity_sign_in_page" />
         <activity android:name=".Landing_page" />
@@ -20,6 +41,14 @@
             </intent-filter>
         </activity>
         <activity android:name=".typeData_page" />
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.example.androidproject.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
     </application>
-
 </manifest>
