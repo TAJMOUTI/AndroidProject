@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,10 +16,15 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 public class activity_sign_up_page extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
+    private EditText editTextEmailAddress;
+    private EditText editTextPassword;
+    private EditText editTextConfirmPassword;
+    private EditText editTextName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,10 +32,10 @@ public class activity_sign_up_page extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up_page);
 
         mAuth = FirebaseAuth.getInstance();
-
-        final EditText editTextEmailAddress = findViewById(R.id.editTextEmailAddress);
-        final EditText editTextPassword = findViewById(R.id.editTextPassword);
-        final EditText editTextConfirmPassword = findViewById(R.id.editTextConfirmPassword);
+        editTextEmailAddress =      findViewById(R.id.editTextEmailAddress);
+        editTextPassword =          findViewById(R.id.editTextPassword);
+        editTextConfirmPassword =   findViewById(R.id.editTextConfirmPassword);
+        editTextName =              findViewById(R.id.editTextName);
 
         TextView txt_sign_in = (TextView) findViewById(R.id.txt_sign_in);
         txt_sign_in.setOnClickListener(new View.OnClickListener() {
@@ -42,17 +46,18 @@ public class activity_sign_up_page extends AppCompatActivity {
             }
         });
 
-        Button btnSignUp = findViewById(R.id.btnSignUp);
+        Button btnSignUp = findViewById(R.id.btnSignIn);
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String email = editTextEmailAddress.getText().toString();
                 String password = editTextPassword.getText().toString();
                 String confirmPassword = editTextConfirmPassword.getText().toString();
+                String name = editTextName.getText().toString();
 
-                if(!email.isEmpty() && !password.isEmpty() && !confirmPassword.isEmpty()) {
+                if(!email.isEmpty() && !password.isEmpty() && !confirmPassword.isEmpty() && !name.isEmpty()) {
                     if(password.equals(confirmPassword)) {
-                        createAccount(email, password);
+                        createAccount(email, password, name);
                     } else {
                         Toast.makeText(getApplicationContext(), "passwords don't match", Toast.LENGTH_LONG).show();
                     }
@@ -71,29 +76,28 @@ public class activity_sign_up_page extends AppCompatActivity {
         updateUI(currentUser);
     }
 
-    public void createAccount(String email, String password) {
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+    public void createAccount(String email, String password, final String name) {
+        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user);
-                            Toast.makeText(getApplicationContext(), "user add", Toast.LENGTH_LONG).show();
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Toast.makeText(getApplicationContext(), "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                            updateUI(null);
-                        }
-
-                        // ...
-                    }
-                });
+            if (task.isSuccessful()) {
+                // Sign in success, update UI with the signed-in user's information
+                FirebaseUser user = mAuth.getCurrentUser();
+                UserProfileChangeRequest setName = new UserProfileChangeRequest.Builder().setDisplayName(name).build();
+                user.updateProfile(setName);
+                updateUI(user);
+                Intent intent = new Intent(getApplicationContext(), Main_Page.class);
+                startActivity(intent);
+            } else {
+                // If sign in fails, display a message to the user.
+                Toast.makeText(getApplicationContext(), "Authentication failed.",
+                        Toast.LENGTH_SHORT).show();
+                updateUI(null);
+            }
+            }
+        });
     }
 
     public void updateUI(FirebaseUser account){
-
     }
 }

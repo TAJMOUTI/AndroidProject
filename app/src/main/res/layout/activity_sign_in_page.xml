@@ -83,7 +83,7 @@
                         android:textColorHint="#000000" />
 
                     <TextView
-                        android:id="@+id/textView5"
+                        android:id="@+id/textViewForgotPassword"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="forgot password ?"
@@ -100,7 +100,7 @@
                     android:orientation="vertical">
 
                     <Button
-                        android:id="@+id/btnSignUp"
+                        android:id="@+id/btnSignIn"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="78dp"
