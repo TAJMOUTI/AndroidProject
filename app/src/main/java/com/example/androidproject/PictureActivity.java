@@ -95,26 +95,34 @@ public class PictureActivity extends AppCompatActivity {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     // TODO if item is already in the list
                     ingredients.add(ObjectLabels.get(position));
-                    view.setBackgroundResource(R.color.myBlue);
-                    //view.setBackgroundColor(0xB8B8D1); //TODO changer la methode de changement de couleur
+                    view.setBackgroundColor(0xB5F50057); //TODO changer la methode de changement de couleur
                     view.setEnabled(false);
 
                     for(int i = 0; i < ingredients.size(); i++) {
                         System.out.println(ingredients.get(i));
                     }
+
                     if(ingredients.isEmpty()){
                         nextButton.setEnabled(false);
-                        //nextButton.setBackgroundResource(R.color.myBlue); //TODO relier a la paged'ajout des quantité
-                        //view.setBackgroundColor(0xB8B8D1); //TODO changer la methode de changement de couleur
+                        nextButton.setBackgroundColor(0xB5F50057); //TODO changer la methode de changement de couleur
 
                     }
                 }
             });
 
-
-
             //Affichage de la photo crée
             photoPlate.setImageBitmap(bitmap);
+
+            //Redirection vers la page d'ajout des détails sur les quantités
+            //Passage de la liste ingredients en paramètre
+            nextButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(PictureActivity.this, PictureActivityDetails.class);
+                    intent.putExtra("INGREDIENTS_LIST", ingredients);
+                    startActivity(intent);
+                }
+            });
         }
     }
 
@@ -131,7 +139,6 @@ public class PictureActivity extends AppCompatActivity {
         super.onResume();
         //Si la photo a été prise on l'envoie à Clarifai pour vérifier
         if (photoPath != null) {
-            System.out.println("photopath is okay");
             new ClarifaiTask().execute(new File(photoPath));
         }
     }
@@ -163,7 +170,6 @@ public class PictureActivity extends AppCompatActivity {
                     photoFile);
 
             takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-            //startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
         //}
     }
