@@ -7,6 +7,7 @@
     tools:context=".Main_Page">
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="32dp"
@@ -26,12 +27,12 @@
                 android:id="@+id/textViewName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="60dp"
                 android:text="hi Charlotte !"
                 android:textAlignment="center"
                 android:textColor="#000000"
                 android:textSize="36sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="60dp"/>
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/btn_to_camera"
@@ -45,9 +46,9 @@
                 android:id="@+id/textView7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp"
                 android:text="or"
-                android:textAlignment="center"
-                android:layout_marginVertical="10dp"/>
+                android:textAlignment="center" />
 
             <Button
                 android:id="@+id/btn_to_type_data"
@@ -56,6 +57,20 @@
                 android:background="@drawable/btn_primary"
                 android:text="type your data manually"
                 android:textColor="#FFFFFF" />
+
         </LinearLayout>
     </LinearLayout>
+
+    <Button
+        android:id="@+id/btnMyAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/btn_primary"
+        android:text="my account"
+        android:textColor="#FFFFFF"
+        android:paddingHorizontal="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
