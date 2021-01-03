@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -16,11 +17,13 @@ public class Main_Page extends AppCompatActivity {
     private FirebaseUser user;
     private String username;
     private TextView textViewName;
-
+    BottomNavigationView bottomNavigation;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main__page);
+
+        bottomNavigation = findViewById(R.id.bottom_navigation);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         //username = user.getDisplayName(); //todo: erreur firebase

@@ -80,8 +80,6 @@ public class PictureActivity extends AppCompatActivity {
         }
 
         protected void onPostExecute(final ArrayList<String> ObjectLabels) {
-            System.out.println("on post execute");
-
             listIngredients = findViewById(R.id.ingredients);
             photoPlate = findViewById(R.id.photoPlate);
             nextButton = findViewById(R.id.nextButton);
@@ -95,7 +93,7 @@ public class PictureActivity extends AppCompatActivity {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     // TODO if item is already in the list
                     ingredients.add(ObjectLabels.get(position));
-                    view.setBackgroundColor(0xB5F50057); //TODO changer la methode de changement de couleur
+                    view.setBackgroundColor(0x805496BC); //TODO changer la methode de changement de couleur
                     view.setEnabled(false);
 
                     for(int i = 0; i < ingredients.size(); i++) {
@@ -104,8 +102,7 @@ public class PictureActivity extends AppCompatActivity {
 
                     if(ingredients.isEmpty()){
                         nextButton.setEnabled(false);
-                        nextButton.setBackgroundColor(0xB5F50057); //TODO changer la methode de changement de couleur
-
+                        nextButton.setBackgroundColor(0x805496BC); //TODO changer la methode de changement de couleur
                     }
                 }
             });
