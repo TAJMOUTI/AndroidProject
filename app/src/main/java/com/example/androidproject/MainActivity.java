@@ -48,7 +48,9 @@ public class MainActivity extends AppCompatActivity {
                     viewpager.setCurrentItem(currentPage + 1);
                 } else {
                     Intent intent = new Intent(getApplicationContext(), Landing_page.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
+                    finish();
                 }
             }
         });
