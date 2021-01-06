@@ -23,10 +23,8 @@ public class Main_Page extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main__page);
 
-        bottomNavigation = findViewById(R.id.bottom_navigation);
-
         user = FirebaseAuth.getInstance().getCurrentUser();
-        //username = user.getDisplayName(); //todo: erreur firebase
+        username = user.getDisplayName();
         textViewName = findViewById(R.id.textViewName);
 
         textViewName.setText("Hi " + username);

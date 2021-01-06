@@ -16,7 +16,7 @@
         android:id="@+id/bannière"
         android:layout_width="187dp"
         android:layout_height="99dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="8dp"
         android:text="@string/app_name"
         android:textColor="#000000"
         android:textSize="36sp"
