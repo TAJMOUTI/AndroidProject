@@ -7,17 +7,29 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import clarifai2.api.ClarifaiBuilder;
 import clarifai2.api.ClarifaiClient;
@@ -30,6 +42,20 @@ import clarifai2.dto.prediction.Concept;
 
 public class PictureActivity extends AppCompatActivity {
 
+    private String api_key = "f50c24a977bb49318a2f3ad3b2440b22";
+    private static final int REQUEST_TAKE_PHOTO = 1;
+    private static final int REQUEST_IMAGE_CAPTURE = 1;
+    private static final String TAG = "PictureActivity";
+    private FirebaseUser user;
+    private String USER_ID;
+    private String photoPath = null;
+    private Bitmap bitmap;
+    private ImageView photoPlate;
+    private ListView listIngredients;
+    private ArrayList<String> ingredients;
+    private Button saveButton;
+    private FirebaseFirestore db;
+
     /**
      * We need a class that extends AsyncTask to run the API
      * call : new ClarifaiTask().execute(); to analyse the photo stored in variable : bitmap
@@ -41,7 +67,7 @@ public class PictureActivity extends AppCompatActivity {
         protected ArrayList<String> doInBackground(Object[] objects) {
             if (bitmap != null) {
                 // the list where we store the ingredients
-                ArrayList<String> labels = new ArrayList<String>();
+                ingredients = new ArrayList<String>();
 
                 // found the ingredients with the API
                 final ClarifaiClient client = new ClarifaiBuilder(api_key).buildSync();
@@ -56,13 +82,13 @@ public class PictureActivity extends AppCompatActivity {
                     // store the data in our list
                     for(int i = 0; i < result.size(); i++){
                         for(int j = 0; j < result.get(i).data().size(); j++){
-                            String labelResult = result.get(i).data().get(j).name();
-                            labels.add(labelResult);
+                            String ingredient = result.get(i).data().get(j).name();
+                            ingredients.add(ingredient);
                         }
                     }
 
-                    // return the labels
-                    return labels;
+                    // return the ingredients
+                    return ingredients;
                 } else {
                     Toast.makeText(getApplicationContext(), "nothing to see...", Toast.LENGTH_LONG).show();
                 }
@@ -87,25 +113,44 @@ public class PictureActivity extends AppCompatActivity {
     }
 
 
-    private String api_key = "f50c24a977bb49318a2f3ad3b2440b22";
-    private static final int REQUEST_TAKE_PHOTO = 1;
-    private static final int REQUEST_IMAGE_CAPTURE = 1;
-    private String photoPath = null;
-    private Bitmap bitmap;
-    private ImageView photoPlate;
-    private ListView listIngredients;
-    private ArrayList<String> ingredients;
-    private Button nextButton;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_picture);
 
         // set variables
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        USER_ID = user.getUid();
         listIngredients = findViewById(R.id.ingredients);
         photoPlate = findViewById(R.id.photoPlate);
-        nextButton = findViewById(R.id.nextButton);
+        saveButton = findViewById(R.id.btn_save);
+        db = FirebaseFirestore.getInstance();
+
+        // onclick listeners
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Map<String, Object> notebook = new HashMap<>();
+                Log.d(TAG, "onClick: " + ingredients.toString());
+                notebook.put("list", ingredients);
+                notebook.put("date", new Date());
+
+                db.collection("users").document(USER_ID).collection("notebook").add(notebook)
+                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            @Override
+                            public void onSuccess(DocumentReference documentReference) {
+                                Toast.makeText(PictureActivity.this, "Saved !", Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(PictureActivity.this, "Fail", Toast.LENGTH_SHORT).show();
+                                Log.d(TAG, "onFailure: " + e.getMessage());
+                            }
+                        });
+            }
+        });
 
         openCamera();
     }
