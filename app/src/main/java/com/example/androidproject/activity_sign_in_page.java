@@ -90,7 +90,9 @@ public class activity_sign_in_page extends AppCompatActivity {
                         updateUI(user);
                         // go to the next page
                         Intent intent = new Intent(getApplicationContext(), Main_Page.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
+                        finish();
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w(TAG, "signInWithEmail:failure", task.getException());

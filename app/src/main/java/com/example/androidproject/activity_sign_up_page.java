@@ -93,7 +93,9 @@ public class activity_sign_up_page extends AppCompatActivity {
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
                                 Intent intent = new Intent(getApplicationContext(), Main_Page.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(intent);
+                                finish();
                             } else
                                 Toast.makeText(getApplicationContext(), "Error while updating name.", Toast.LENGTH_SHORT).show();
                         }
