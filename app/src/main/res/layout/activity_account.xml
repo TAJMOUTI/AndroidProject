@@ -34,6 +34,15 @@
                 android:textSize="24sp" />
 
             <Button
+                android:id="@+id/btnMyNotebook"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/btn_primary"
+                android:text="my notebook"
+                android:textColor="#FFFFFF" />
+
+            <Button
                 android:id="@+id/btnChangeUsername"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -67,8 +76,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="OK"
-                    android:background="@drawable/btn_alternate"/>
+                    android:background="@drawable/btn_alternate"
+                    android:text="OK" />
             </LinearLayout>
 
             <Button
@@ -127,10 +136,10 @@
                     android:id="@+id/btnSetPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="40dp"
                     android:layout_weight="1"
-                    android:text="OK"
                     android:background="@drawable/btn_alternate"
-                    android:layout_marginHorizontal="40dp"/>
+                    android:text="OK" />
             </LinearLayout>
 
         </LinearLayout>

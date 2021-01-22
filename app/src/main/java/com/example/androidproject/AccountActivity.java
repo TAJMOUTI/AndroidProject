@@ -34,6 +34,7 @@ public class AccountActivity extends AppCompatActivity {
         user = FirebaseAuth.getInstance().getCurrentUser();
         username = user.getDisplayName();
         final TextView lblUsername = findViewById(R.id.lblUsername);
+        final Button btnMyNotebook = findViewById(R.id.btnMyNotebook);
         final Button btnChangeUsername = findViewById(R.id.btnChangeUsername);
         final Button btnChangePassword = findViewById(R.id.btnChangePassword);
         final Button btnLogOut = findViewById(R.id.btnLogOut);
@@ -53,6 +54,14 @@ public class AccountActivity extends AppCompatActivity {
         editTextUsername.setText(username);
 
         // onclick listeners
+        btnMyNotebook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), NotebookActivity.class);
+                startActivity(intent);
+            }
+        });
+
         btnChangeUsername.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
