@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -52,6 +53,7 @@ public class PictureActivity extends AppCompatActivity {
     private Bitmap bitmap;
     private ImageView photoPlate;
     private ListView listIngredients;
+    private ProgressBar progressBar;
     private ArrayList<String> ingredients;
     private Button saveButton;
     private FirebaseFirestore db;
@@ -107,6 +109,7 @@ public class PictureActivity extends AppCompatActivity {
             super.onPostExecute(o);
 
             // we display the ingredients on the screen
+            progressBar.setVisibility(View.INVISIBLE);
             ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(PictureActivity.this,android.R.layout.simple_list_item_1, (ArrayList<String>) o);
             listIngredients.setAdapter(arrayAdapter);
         }
@@ -124,6 +127,7 @@ public class PictureActivity extends AppCompatActivity {
         listIngredients = findViewById(R.id.ingredients);
         photoPlate = findViewById(R.id.photoPlate);
         saveButton = findViewById(R.id.btn_save);
+        progressBar = findViewById(R.id.progressBar);
         db = FirebaseFirestore.getInstance();
 
         // onclick listeners

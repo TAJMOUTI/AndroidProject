@@ -2,10 +2,12 @@ package com.example.androidproject;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Layout;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +30,7 @@ public class activity_sign_in_page extends AppCompatActivity {
     private Button btnSignIn;
     private TextView txt_sign_up;
     private TextView textViewForgotPassword;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +44,10 @@ public class activity_sign_in_page extends AppCompatActivity {
         btnSignIn = findViewById(R.id.btnSignIn);
         txt_sign_up = (TextView) findViewById(R.id.txt_sign_up);
         textViewForgotPassword = findViewById(R.id.textViewForgotPassword);
+        progressBar = findViewById(R.id.progressBar);
+
+        // init
+        progressBar.setVisibility(View.INVISIBLE);
 
         // onclick listener on text sign up
         txt_sign_up.setOnClickListener(new View.OnClickListener() {
@@ -80,6 +87,7 @@ public class activity_sign_in_page extends AppCompatActivity {
      */
     public void signIn(String email, String password) {
         if(!email.isEmpty() && !password.isEmpty()) {
+            progressBar.setVisibility(View.VISIBLE);
             mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
@@ -94,6 +102,7 @@ public class activity_sign_in_page extends AppCompatActivity {
                         startActivity(intent);
                         finish();
                     } else {
+                        progressBar.setVisibility(View.INVISIBLE);
                         // If sign in fails, display a message to the user.
                         Log.w(TAG, "signInWithEmail:failure", task.getException());
                         Toast.makeText(activity_sign_in_page.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
