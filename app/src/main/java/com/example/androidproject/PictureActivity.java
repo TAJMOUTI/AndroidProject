@@ -134,26 +134,26 @@ public class PictureActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Map<String, Object> notebook = new HashMap<>();
-                Log.d(TAG, "onClick: " + ingredients.toString());
-                notebook.put("list", ingredients);
-                notebook.put("date", new Date());
+            Map<String, Object> notebook = new HashMap<>();
+            Log.d(TAG, "onClick: " + ingredients.toString());
+            notebook.put("list", ingredients);
+            notebook.put("date", new Date());
 
-                db.collection("users").document(USER_ID).collection("notebook").add(notebook)
-                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                            @Override
-                            public void onSuccess(DocumentReference documentReference) {
-                                Toast.makeText(PictureActivity.this, "Saved !", Toast.LENGTH_SHORT).show();
-                                finish();
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(PictureActivity.this, "Fail", Toast.LENGTH_SHORT).show();
-                                Log.d(TAG, "onFailure: " + e.getMessage());
-                            }
-                        });
+            db.collection("users").document(USER_ID).collection("notebook").add(notebook)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                    Toast.makeText(PictureActivity.this, "Saved !", Toast.LENGTH_SHORT).show();
+                    finish();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(PictureActivity.this, "Fail", Toast.LENGTH_SHORT).show();
+                    Log.d(TAG, "onFailure: " + e.getMessage());
+                    }
+                });
             }
         });
 
